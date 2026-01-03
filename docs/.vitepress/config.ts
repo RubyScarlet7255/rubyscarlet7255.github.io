@@ -147,6 +147,4 @@ export default defineConfig({
           md.use(markdownItKatex)
       }
     },
-	base: "/repo/",
-
 });
