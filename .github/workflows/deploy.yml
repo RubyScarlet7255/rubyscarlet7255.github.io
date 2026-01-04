@@ -19,17 +19,20 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'npm'
+          cache: 'yarn'
           
+      - name: 安装yarn
+        run: npm install -g yarn
+        
       - name: 安装依赖
         run: |
           cd docs
-          npm ci
+          yarn install
           
       - name: 构建博客
         run: |
           cd docs
-          npm run build
+          yarn build
           
       - name: 检查构建结果
         run: |
