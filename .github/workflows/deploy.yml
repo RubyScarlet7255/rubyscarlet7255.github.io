@@ -1,81 +1,44 @@
-name: 🚀 Deploy VitePress
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches: [main]
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: 📥 检出代码
+      - name: Checkout
         uses: actions/checkout@v4
         
-      - name: 🔍 调试：查看项目结构
-        run: |
-          echo "=== 项目结构 ==="
-          find . -type f -name "*.json" | head -10
-          echo "=== docs目录 ==="
-          ls -la docs/
-          
-      - name: 🛠️ 设置Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           
-      - name: 📦 安装依赖
+      - name: Install and Build
         run: |
-          echo "进入docs目录安装依赖..."
           cd docs
           npm ci
-          
-      - name: 🔨 尝试各种构建命令
-        run: |
-          echo "=== 尝试构建 ==="
-          cd docs
-          
-          # 方法1：查看可用的scripts
-          echo "可用的npm scripts:"
-          npm run || echo "无法获取scripts"
-          
-          # # 方法2：尝试常见构建命令
-          # echo "尝试构建..."
-          # if grep -q '"build"' package.json; then
-          #   echo "执行 npm run build"
-          #   npm run build
-          # elif grep -q '"docs:build"' package.json; then
-          #   echo "执行 npm run docs:build"
-          #   npm run docs:build
-          # elif grep -q '"build:docs"' package.json; then
-          #   echo "执行 npm run build:docs"
-          #   npm run build:docs
-          # else
-          #   echo "尝试默认构建"
-          #   npx vitepress build
-          # fi
-          
-      - name: 📁 检查构建结果
-        run: |
-          echo "=== 检查构建输出 ==="
-          # 检查可能的输出目录
-          if [ -d "docs/.vitepress/dist" ]; then
-            echo "✅ 找到: docs/.vitepress/dist"
-            ls -la docs/.vitepress/dist/
-          fi
-          
-          if [ -d "docs/dist" ]; then
-            echo "✅ 找到: docs/dist"
-            ls -la docs/dist/
-          fi
-          
-          if [ -d "_site" ]; then
-            echo "✅ 找到: _site"
-            ls -la _site/
-          fi
-          
-      - name: 🚀 部署到GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+          npm run build || npm run docs:build || npx vitepress build
+        
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          # 先尝试最常见的路径
-          publish_dir: docs/.vitepress/dist
+          path: docs/.vitepress/dist  # 修改这里！
+          
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
