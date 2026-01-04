@@ -25,6 +25,13 @@ jobs:
           yarn build
           chmod 600 dist/CNAME
 
+      - name: Debug
+        run: |
+          echo "=== 构建目录内容 ==="
+          ls -la docs/.vitepress/dist/
+          echo "=== 是否有index.html ==="
+          ls docs/.vitepress/dist/ | grep index.html
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
