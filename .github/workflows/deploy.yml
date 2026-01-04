@@ -15,21 +15,18 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           cache: yarn
       - run: yarn install --frozen-lockfile
 
       - name: Build
         run: |
-          yarn lib:build
-          mkdir -p ./docs/themes/async
-          cp -RT ./packages/hexo-theme-async ./docs/themes/async
           yarn build
-          echo ${{ secrets.CNAME }} > docs/.vitepress/dist/CNAME
-          chmod 600 docs/.vitepress/dist/CNAME
+          echo ${{ secrets.CNAME }} > dist/CNAME
+          chmod 600 dist/CNAME
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .vitepress/dist
+          publish_dir: dist
