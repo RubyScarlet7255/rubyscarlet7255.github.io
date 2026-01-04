@@ -1,6 +1,5 @@
 ---
-title: 首页
+title: "祝你早安，午安，晚安"
 index: true
-banner:
-	bannerTitle: 树深时见鹿，<br>溪午不闻钟。
+date: 2025-02-04 17:00:00
 ---
