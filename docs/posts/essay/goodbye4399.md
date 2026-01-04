@@ -4,7 +4,7 @@ head:
     - rel: stylesheet
       href: https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css
 
-title: 本站介绍
+title: 再见
 date: 2025-07-17 21:50:00
 categories: 随笔
 cover: [/pics/first_post/cover.jpg]

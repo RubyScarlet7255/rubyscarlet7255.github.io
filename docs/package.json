@@ -8,7 +8,8 @@
 	"scripts": {
 		"dev": "vitepress dev ./",
 		"build": "vitepress build ./",
-		"preview": "vitepress preview ./"
+		"preview": "vitepress preview ./",
+		"deploy": "yarn build && echo 'rubyscarlet7255.github.io' > .vitepress/dist/CNAME && gh-pages -d .vitepress/dist --dotfiles"
 	},
 	"dependencies": {
 		"markdown-it-katex": "^2.0.3",
@@ -18,6 +19,7 @@
 		"doc": "docs"
 	},
 	"devDependencies": {
+		"gh-pages": "^6.3.0",
 		"typescript": "^5.1.6",
 		"vitepress": "^1.1.0"
 	}
