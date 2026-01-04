@@ -26,11 +26,13 @@ jobs:
         
       - name: 安装依赖
         run: |
+          echo "安装yarn"
           cd docs
           yarn install
           
       - name: 构建博客
         run: |
+          echo "构筑博客"
           cd docs
           yarn build
           
@@ -42,6 +44,5 @@ jobs:
       - name: 部署到GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: docs/.vitepress/dist
           publish_branch: gh-pages
