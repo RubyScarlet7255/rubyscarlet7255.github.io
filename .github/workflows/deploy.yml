@@ -1,32 +1,84 @@
-name: Deploy docs
+name: Deploy VitePress to GitHub Pages
 
 on:
   push:
     branches: [main]
     paths:
       - 'docs/**'
-
   workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 获取所有历史记录
+          
+      - uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: yarn
-      - run: yarn install --frozen-lockfile
-
+          cache: 'yarn'
+          cache-dependency-path: docs/yarn.lock
+          
+      - name: Install dependencies
+        run: |
+          cd docs
+          yarn install --frozen-lockfile
+          
+          # 如果使用的是 vitepress-theme-async，确保主题已安装
+          if [ -f "package.json" ] && grep -q "vitepress-theme-async" package.json; then
+            echo "主题已安装"
+          else
+            echo "警告：未检测到 vitepress-theme-async 主题"
+          fi
+      
       - name: Build
         run: |
+          # 构建主题库（如果有的话）
+          if [ -f "package.json" ] && grep -q '"lib:build"' package.json; then
+            yarn lib:build
+          else
+            echo "跳过 lib:build，未在 package.json 中找到该脚本"
+          fi
+          
+          # 复制Hexo主题（如果你有这个目录）
+          if [ -d "./packages/hexo-theme-async" ]; then
+            mkdir -p ./docs/themes/async
+            cp -RT ./packages/hexo-theme-async ./docs/themes/async
+          else
+            echo "跳过复制 hexo-theme-async，目录不存在"
+          fi
+          
+          # 构建VitePress
+          cd docs
           yarn build
-          echo ${{ secrets.CNAME }} > dist/CNAME
-          chmod 600 dist/CNAME
-
+          
+          # 创建 .nojekyll 文件（关键修复！）
+          touch .vitepress/dist/.nojekyll
+          
+          # 设置CNAME（如果有）
+          if [ -n "${{ secrets.CNAME }}" ] && [ "${{ secrets.CNAME }}" != "" ]; then
+            echo "${{ secrets.CNAME }}" > .vitepress/dist/CNAME
+            echo "已创建 CNAME: ${{ secrets.CNAME }}"
+          else
+            echo "未设置 CNAME secret，跳过创建"
+          fi
+          
+          # 调试：检查构建结果
+          echo "=== 构建文件列表 ==="
+          ls -la .vitepress/dist/
+          echo -e "\n=== 检查资源路径 ==="
+          if [ -f ".vitepress/dist/index.html" ]; then
+            grep -o 'href="[^"]*"' .vitepress/dist/index.html | head -5
+            grep -o 'src="[^"]*"' .vitepress/dist/index.html | head -5
+          fi
+      
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: dist
+          publish_dir: docs/.vitepress/dist  # 修复路径！
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          force_orphan: true  # 每次部署都创建新的提交历史
