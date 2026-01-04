@@ -11,7 +11,6 @@
 		"preview": "vitepress preview ./"
 	},
 	"dependencies": {
-		"markdown-it-katex": "^2.0.3",
 		"vitepress-theme-async": "latest"
 	},
 	"directories": {
