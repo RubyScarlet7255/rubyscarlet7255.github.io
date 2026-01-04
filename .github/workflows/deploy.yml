@@ -1,49 +1,35 @@
-name: Deploy VitePress Blog
+name: Deploy docs
 
 on:
   push:
     branches: [main]
-  workflow_dispatch:
+    paths:
+      - 'docs/**'
 
-permissions:
-  contents: write
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
         with:
-          node-version: '18'
-          cache: 'yarn'
-          
-      - name: 安装yarn
-        run: npm install -g yarn
-        
-      - name: 安装依赖
+          node-version: 16
+          cache: yarn
+      - run: yarn install --frozen-lockfile
+
+      - name: Build
         run: |
-          echo "安装yarn"
-          cd docs
-          yarn install
-          
-      - name: 构建博客
-        run: |
-          echo "构筑博客"
-          cd docs
+          yarn lib:build
+          mkdir -p ./demo/themes/async
+          cp -RT ./packages/hexo-theme-async ./demo/themes/async
           yarn build
-          
-      - name: 检查构建结果
-        run: |
-          echo "=== 构建目录内容 ==="
-          ls -la docs/.vitepress/dist/
-          
-      - name: 🚀 部署到GitHub Pages
+          echo ${{ secrets.CNAME }} > docs/.vitepress/dist/CNAME
+          chmod 600 docs/.vitepress/dist/CNAME
+
+      - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          # 先尝试最常见的路径
           publish_dir: docs/.vitepress/dist
