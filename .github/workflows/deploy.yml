@@ -2,7 +2,7 @@ name: Deploy VitePress site to Pages
 
 on:
   push:
-    branches: [main, master]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -23,22 +23,22 @@ jobs:
         with:
           fetch-depth: 0
       
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-          cache-dependency-path: 'docs/package-lock.json'
+          cache: 'yarn'
+          cache-dependency-path: 'docs/yarn.lock'  # 改为 yarn.lock
       
       - name: Setup Pages
         uses: actions/configure-pages@v4
       
-      - name: Install dependencies
-        run: npm ci
-        working-directory: ./docs
+      - name: Install dependencies (yarn)
+        run: yarn install --frozen-lockfile
+        working-directory: ./docs  # 确保在 docs 目录下运行
       
-      - name: Build with VitePress
-        run: npm run build
+      - name: Build with VitePress (yarn)
+        run: yarn build
         working-directory: ./docs
       
       - name: Upload artifact
