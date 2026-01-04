@@ -1,38 +1,44 @@
-name: Deploy docs
+name: Deploy VitePress Blog
 
 on:
   push:
     branches: [main]
-    paths:
-      - 'docs/**'
-
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v3
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
-          cache: yarn
-      - run: yarn install --frozen-lockfile
-
-      - name: Build
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: 安装依赖
         run: |
           cd docs
-          yarn build
-          chmod 600 dist/CNAME
-
-      - name: Debug
+          npm ci
+          
+      - name: 构建博客
+        run: |
+          cd docs
+          npm run build
+          
+      - name: 检查构建结果
         run: |
           echo "=== 构建目录内容 ==="
           ls -la docs/.vitepress/dist/
-          echo "=== 是否有index.html ==="
-          ls docs/.vitepress/dist/ | grep index.html
-
-      - name: Deploy
+          
+      - name: 部署到GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          publish_dir: docs/.vitepress/distdist
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/.vitepress/dist
+          publish_branch: gh-pages
