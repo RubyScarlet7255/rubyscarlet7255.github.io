@@ -21,10 +21,11 @@ jobs:
 
       - name: Build
         run: |
+          cd docs
           yarn build
           chmod 600 dist/CNAME
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
-          publish_dir: dist
+          publish_dir: docs/.vitepress/distdist
