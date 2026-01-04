@@ -1,7 +1,4 @@
 {
-  "devDependencies": {
-    "vitepress": "^2.0.0-alpha.15"
-  },
   "dependencies": {
     "vitepress-theme-async": "^0.0.29"
   }
