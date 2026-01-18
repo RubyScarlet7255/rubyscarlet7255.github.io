@@ -4,7 +4,7 @@ head:
     - rel: stylesheet
       href: https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css
 
-title: 《机器学习绪论》
+title: 《统计学习方法-绪论笔记》
 date: 2026-01-17 15:00:00
 categories: 机器学习
 cover: [/pics/machine_learning/normal_bayes_and_logistic_regression/cover.jpg]
@@ -268,3 +268,7 @@ $$e_{test}=\frac{1}{ N^{'} } \sum^{N^{'} }_{i=1}\hat{L}(y_i, \hat{f}(x_i))$$
 ### 回归问题
 
 &emsp;&emsp;**回归（regression）** 用于预测输入变量（自变量）和输出变量（因变量）之间的关系，尤其是输入变量值变化时，输出变量的值发生的变化，其等价于函数拟合。
+
+## 参考
+
+[1]《统计学习方法》(李航)(清华大学出版社)
