@@ -10,8 +10,7 @@ categories: 机器学习
 cover: [/pics/machine_learning/normal_bayes_and_logistic_regression/cover.jpg]
 sticky: 0
 
-tags: ["机器学习","AI","读书笔记"]
-
+tags: ["机器学习", "AI", "读书笔记"]
 ---
 
 # 概论
@@ -27,11 +26,13 @@ tags: ["机器学习","AI","读书笔记"]
 &emsp;&emsp;其可以概括如下：从给定的、有限的、用于学习的**训练数据集合（training data）**出发，假设数据是**独立同分布**产生的；并且要学习的模型属于某个函数（通俗一点即数据之间映射关系）的集合，该集合称为**假设空间（hypothesis space）**;并且应用某个**评价准则（evaluation criterion）**。统计学习的目标就是从**假设空间**中，依照**选定训练集**以及**评价准则**，最终选取一个**最优模型**。
 
 &emsp;&emsp;因此，统计学习可以分为三要素：
+
 1. 模型（model）
 2. 策略（strategy）：学习的目标和准则
 3. 算法（algorithm）：具体如何实现目标
 
 &emsp;&emsp;可以将统计学习的步骤总结如下：
+
 1. 得到一个有限的训练集
 2. 确定包含所有可能的模型的假设空间，即学习模型的集合
 3. 确定模型选择的准则，即模型的策略
@@ -80,10 +81,11 @@ tags: ["机器学习","AI","读书笔记"]
 ## 统计学习方法分类
 
 ### 模型的分类
+
 &emsp;&emsp;以下是按照统计学习模型的不同分类方式。
 
 - **概率模型与非概率模型**
-&emsp;&emsp; **概率模型（probabilistic model）** 中，输入为 $x$ ，输出为 $y$，概率模型所采用的模型取条件概率分布形式 $P(y|x)$ 。
+  &emsp;&emsp; **概率模型（probabilistic model）** 中，输入为 $x$ ，输出为 $y$，概率模型所采用的模型取条件概率分布形式 $P(y|x)$ 。
 
 &emsp;&emsp; **非概率模型（nonprobabilistic model）** 中，输入为 $x$ ，输出为 $z$ ,模型取条件概率分布形式为 $P(z|x)$ 或者 $P(x|z)$ 。
 
@@ -230,6 +232,7 @@ $$e_{test}=\frac{1}{ N^{'} } \sum^{N^{'} }_{i=1}\hat{L}(y_i, \hat{f}(x_i))$$
 &emsp;&emsp;学习方法的泛化能力是指的改方法学习到的模型对于未知数据的预测能力，是学习方法本质上重要的性质。一般是通过测试集来评价泛化能力，然而这种评价依赖于测试数据集，结果很可能是不可靠的。
 
 ### 泛化误差（generalization error）
+
 &emsp;&emsp;如果学习到的模型为 $\hat{f}$ ,那么使用这个模型对于**未知数据** 预测出来的误差就成为泛化误差。
 
 ### 泛化误差上界（generalization error bound）
