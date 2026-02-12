@@ -103,7 +103,7 @@ $$x^{(k+1)} = x^{(k)} + p_k$$
 &emsp;&emsp;在牛顿法中，Hessian矩阵的求逆是非常复杂的过程，而拟牛顿法则是采用一个n阶矩阵$G_k = G(x^{(k)})$ 来近似替代 $H_k^{-1}$
 
 &emsp;&emsp;回到牛顿法的推导，根据：
-$$$$\nabla f(x) = g_k+H_k(x-x^{(k)})$$
+$$\nabla f(x) = g_k+H_k(x-x^{(k)})$$
 
 &emsp;&emsp;可以得到：
 $$g_{k+1} - g_{k} = H_k(x^{(k+1)} - x^{k})$$

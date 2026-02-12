@@ -25,6 +25,11 @@ tags: ["机器学习", "AI"]
 
 &emsp;&emsp;主仓库：[ML_Notes](https://github.com/RubyScarlet7255/ML_Notes)
 
+## 参考书目推荐
+
+1. Python机器学习（原书第3版）（塞巴斯蒂安·拉施卡(Sebastian Raschka)
+2. 统计学习方法（第2版） (李航)
+
 ## 基础概念
 
 1. [概论](https://rubyscarlet7255.github.io/posts/machine_learning/introduce.html)
@@ -32,5 +37,6 @@ tags: ["机器学习", "AI"]
 ## 监督学习
 
 1. [感知机](https://github.com/RubyScarlet7255/ML_Notes/blob/master/perceptron/perceptron.ipynb)
-2. [逻辑回归](https://github.com/RubyScarlet7255/ML_Notes/tree/master/logistic_regression)
+2. [逻辑回归](https://github.com/RubyScarlet7255/ML_Notes/blob/master/logistic_regression/logistic_regression.ipynb)
 3. [朴素贝叶斯](https://rubyscarlet7255.github.io/posts/machine_learning/normal_bayes.html)
+4. [最大熵模型](https://github.com/RubyScarlet7255/ML_Notes/blob/master/logistic_regression/maxEnt.ipynb)
