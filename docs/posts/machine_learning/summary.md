@@ -40,3 +40,5 @@ tags: ["机器学习", "AI"]
 2. [逻辑回归](https://github.com/RubyScarlet7255/ML_Notes/blob/master/logistic_regression/logistic_regression.ipynb)
 3. [朴素贝叶斯](https://rubyscarlet7255.github.io/posts/machine_learning/normal_bayes.html)
 4. [最大熵模型](https://github.com/RubyScarlet7255/ML_Notes/blob/master/logistic_regression/maxEnt.ipynb)
+5. SVM
+   1. [线性可分支持向量机与硬间隔最大化](https://github.com/RubyScarlet7255/ML_Notes/blob/master/svm/svm_1.ipynb)
