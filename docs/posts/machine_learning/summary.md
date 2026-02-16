@@ -7,7 +7,8 @@ head:
 title: 机器学习汇总
 date: 2026-02-02 17:00:00
 categories: 机器学习
-cover: [/pics/machine_learning/ml_summary/cover.jpg]
+cover:
+  [https://images.genius.com/a037e05a2fd7dd60ceec6f8966459eab.1000x1000x1.jpg]
 sticky: 3
 
 tags: ["机器学习", "AI"]
