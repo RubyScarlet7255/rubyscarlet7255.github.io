@@ -43,3 +43,4 @@ tags: ["机器学习", "AI"]
 4. [最大熵模型](https://github.com/RubyScarlet7255/ML_Notes/blob/master/logistic_regression/maxEnt.ipynb)
 5. SVM
    1. [线性可分支持向量机与硬间隔最大化](https://github.com/RubyScarlet7255/ML_Notes/blob/master/svm/svm_1.ipynb)
+   2. [利用软间隔最大化解决线性不可分平面的问题](https://github.com/RubyScarlet7255/ML_Notes/blob/master/svm/svm_1.ipynb)
